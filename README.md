@@ -1,0 +1,10 @@
+# Medicine 后端
+### 技术
+
+1. flask
+2. mysql
+3. redis
+4. crsk
+
+### 时间 2019.4.22
+#### 1. 搭建flask环境
