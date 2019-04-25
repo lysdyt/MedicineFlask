@@ -22,6 +22,7 @@ class UserBaseModel(object):
     email = db.Column(db.String(32), nullable=True) # 用户邮箱
     avatar_url = db.Column(db.String(128), nullable=True) # 用户头像
     address = db.Column(db.String(128), nullable=True) # 用户地址
+    
 
 class Users(BaseModel, UserBaseModel, db.Model):
     '''病人模型类'''
@@ -31,6 +32,7 @@ class Users(BaseModel, UserBaseModel, db.Model):
     level = db.Column(db.String(16), nullable=True) # 用户级别
     grade = db.Column(db.Enum('common', 'vip')) # 普通用户和高级用户
     status = db.Column(db.Enum('null', 'min', 'max')) # 健康， 亚健康， 不健康
+    questions = db.relationship('Question', backref='users')
 
 class Expert(BaseModel, UserBaseModel, db.Model):
     '''专家模型类'''
@@ -84,6 +86,18 @@ class Video (BaseModel, db.Model):
     video_url = db.Column(db.String(128), nullable=True) # 视频链接
     medicine_id = db.Column(db.Integer, db.ForeignKey('mi_medicine_shop.id'),nullable=False) # 商家id
 
+
+class Question(BaseModel, db.Model):
+    '''问题
+    '''
+    __tablename__ = 'mi_question'
+    id = db.Column(db.Integer, primary_key=True) # id
+    content = db.Column(db.String(255), nullable=True) # 问题内容
+    user_id = db.Column(db.Integer, db.ForeignKey('mi_user_profile.id'), nullable=False) # 病人id
+
+class Answer(BaseModel, db.Model):
+    '''回答
+    '''
 
 
 
