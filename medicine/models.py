@@ -9,8 +9,8 @@ from werkzeug.security import generate_password_hash,check_password_hash
 
 class BaseModel(object):
     """模型基类"""
-    create_time=db.Column(db.DateTime,default=datetime.now()) #记录模型类创建时间
-    update_time=db.Column(db.DateTime,default=datetime.now,onupdate=datetime.now())#记录模型类更新时间
+    create_time=db.Column(db.DateTime, default=datetime.now()) #记录模型类创建时间
+    update_time=db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now())#记录模型类更新时间
 
 
 class UserBaseModel(object):
@@ -43,11 +43,23 @@ class Expert(BaseModel, UserBaseModel, db.Model):
 class Position(BaseModel, db.Model):
     '''专家职位类'''
     __tablename__ = 'mi_position'
+
     id = db.Column(db.Integer, primary_key=True) # id
     nickname = db.Column(db.String(32), nullable=True) # 职位名称
     experts = db.relationship('Expert', backref='position') # 关系  一对多 一个职位对应多个专家 不考虑多对多
 
+
+class Essay(BaseModel, db.Model):
+    '''软文'''
+    __tablename__ = 'mi_essay'
+
+    id = db.Column(db.Integer, primary_key=True) # id
+    title = db.Column(db.String(64), nullable=False) # 文章标题
+    abstract = db.Column(db.String(255), nullable=False) # 文章摘要
+    cover_img_url = db.Column(db.String(128), nullable=True) # 文章封面
+    content_url = db.Column(db.Text, nullable=False) # 文章内容
     
+ 
 
 
 
