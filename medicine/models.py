@@ -24,7 +24,7 @@ class UserBaseModel(object):
     address = db.Column(db.String(128), nullable=True) # 用户地址
     
 
-class Users(BaseModel, UserBaseModel, db.Model):
+class User(BaseModel, UserBaseModel, db.Model):
     '''病人模型类'''
     __tablename__ = 'mi_user_profile'
 
@@ -32,7 +32,8 @@ class Users(BaseModel, UserBaseModel, db.Model):
     level = db.Column(db.String(16), nullable=True) # 用户级别
     grade = db.Column(db.Enum('common', 'vip')) # 普通用户和高级用户
     status = db.Column(db.Enum('null', 'min', 'max')) # 健康， 亚健康， 不健康
-    questions = db.relationship('Question', backref='users')
+    questions = db.relationship('Question', backref='user')
+    answers = db.relationship('Answer', backref='user')
 
 class Expert(BaseModel, UserBaseModel, db.Model):
     '''专家模型类'''
@@ -41,6 +42,7 @@ class Expert(BaseModel, UserBaseModel, db.Model):
     grade = db.Column(db.Enum('professor', 'assprofessor')) # 教授， 副教授
     major = db.Column(db.String(32), nullable=True) # 主治
     position_id = db.Column(db.Integer, db.ForeignKey('mi_position.id'),nullable=False) # 外键 关联position
+    answers = db.relationship('Answer', backref='expert')
 
 class Position(BaseModel, db.Model):
     '''专家职位类'''
@@ -94,10 +96,17 @@ class Question(BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key=True) # id
     content = db.Column(db.String(255), nullable=True) # 问题内容
     user_id = db.Column(db.Integer, db.ForeignKey('mi_user_profile.id'), nullable=False) # 病人id
+    answers = db.relationship('Answer', backref='question')
 
 class Answer(BaseModel, db.Model):
     '''回答
     '''
+    __tablename__ = 'mi_answer'
+    id = db.Column(db.Integer, primary_key=True) # id
+    question_id = db.Column(db.Integer, db.ForeignKey('mi_answer.id'), nullable=False) # 问题id
+    user_id = db.Column(db.Integer, db.ForeignKey('mi_user_profile.id'), nullable=True) # 病人id 可以为空
+    expert_id = db.Column(db.Integer, db.ForeignKey('mi_expert.id'), nullable=True) # 医生id 可以为空
+    content = db.Column(db.String(255), nullable=False) # 回答内容
 
 
 
