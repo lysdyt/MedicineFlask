@@ -32,13 +32,13 @@ class Users(BaseModel, UserBaseModel, db.Model):
     grade = db.Column(db.Enum('common', 'vip')) # 普通用户和高级用户
     status = db.Column(db.Enum('null', 'min', 'max')) # 健康， 亚健康， 不健康
 
-# class Expert(BaseModel, UserBaseModel, db.Model):
-#     '''专家模型类'''
-#     __tablename__ = 'mi_expert_profile'
+class Expert(BaseModel, UserBaseModel, db.Model):
+    '''专家模型类'''
+    __tablename__ = 'mi_expert_profile'
 
-#     grade = db.Column(db.Enum('professor', 'assprofessor')) # 教授， 副教授
-#     major = db.Column(db.String(32), nullable=True) # 主治
-#     # position =db.relationship('House',backref='area') # 区域的房屋
+    grade = db.Column(db.Enum('professor', 'assprofessor')) # 教授， 副教授
+    major = db.Column(db.String(32), nullable=True) # 主治
+    # position =db.relationship('House',backref='area') # 区域的房屋
 
 # class Position(BaseModel, db.Model):
 #     '''专家职位类'''
