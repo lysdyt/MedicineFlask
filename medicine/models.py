@@ -38,10 +38,17 @@ class Expert(BaseModel, UserBaseModel, db.Model):
 
     grade = db.Column(db.Enum('professor', 'assprofessor')) # 教授， 副教授
     major = db.Column(db.String(32), nullable=True) # 主治
-    # position =db.relationship('House',backref='area') # 区域的房屋
+    position_id = db.Column(db.Integer, db.ForeignKey('mi_position.id'),nullable=False) # 外键 关联position
 
-# class Position(BaseModel, db.Model):
-#     '''专家职位类'''
-#     __tablename__ = 'mi_position'
-#     id = db.Column(db.Integer, primary_key=True) # id
+class Position(BaseModel, db.Model):
+    '''专家职位类'''
+    __tablename__ = 'mi_position'
+    id = db.Column(db.Integer, primary_key=True) # id
+    nickname = db.Column(db.String(32), nullable=True) # 职位名称
+    experts = db.relationship('Expert', backref='position') # 关系  一对多 一个职位对应多个专家 不考虑多对多
+
+    
+
+
+
     
