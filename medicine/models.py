@@ -62,16 +62,27 @@ class Essay(BaseModel, db.Model):
  
 class PrivateOrder(BaseModel, db.Model):
     '''私人订制'''
+    __tablename__ = 'mi_private_order'
     id = db.Column(db.Integer, primary_key=True) # id
     avatar_url = db.Column(db.String(128), nullable=True) # 订制图片
     title = db.Column(db.String(64), nullable=False) # 定制标题
 
 class MedicineShop(BaseModel, db.Model):
     '''商家'''
+    __tablename__ = 'mi_medicine_shop'
     id = db.Column(db.Integer, primary_key=True) # id
     name = db.Column(db.String(64), nullable=False) # 商家名字
     activity_list = db.Column(db.String(255), nullable=True) # 活动列表
-    videos = db.relationship('Video', backref='medicineShop') # 一对多， 一个商家有多个视频
+    videos = db.relationship('Video', backref='medicine_shop') # 一对多， 一个商家有多个视频
+
+class Video (BaseModel, db.Model):
+    '''视频类
+    '''
+    __tablename__ = 'mi_video'
+    id = db.Column(db.Integer, primary_key=True) # id
+    avatar_url = db.Column(db.String(128), nullable=True) # 视频封面
+    video_url = db.Column(db.String(128), nullable=True) # 视频链接
+    medicine_id = db.Column(db.Integer, db.ForeignKey('mi_medicine_shop.id'),nullable=False) # 商家id
 
 
 
