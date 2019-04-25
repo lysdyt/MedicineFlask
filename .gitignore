@@ -108,3 +108,7 @@ logs/
 
 #vscode
 .vscode
+
+
+# migrations
+migrations
