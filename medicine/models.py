@@ -66,5 +66,16 @@ class PrivateOrder(BaseModel, db.Model):
     avatar_url = db.Column(db.String(128), nullable=True) # 订制图片
     title = db.Column(db.String(64), nullable=False) # 定制标题
 
+class MedicineShop(BaseModel, db.Model):
+    '''商家'''
+    id = db.Column(db.Integer, primary_key=True) # id
+    name = db.Column(db.String(64), nullable=False) # 商家名字
+    activity_list = db.Column(db.String(255), nullable=True) # 活动列表
+    videos = db.relationship('Video', backref='medicineShop') # 一对多， 一个商家有多个视频
+
+
+
+
+
 
     
