@@ -1,3 +1,4 @@
+# _*_ coding: utf-8 _*_
 # __author__: Mai feng
 # __file_name__: manage.py
 # __time__: 2019:04:22:16:28
