@@ -58,9 +58,13 @@ class Essay(BaseModel, db.Model):
     abstract = db.Column(db.String(255), nullable=False) # 文章摘要
     cover_img_url = db.Column(db.String(128), nullable=True) # 文章封面
     content_url = db.Column(db.Text, nullable=False) # 文章内容
-    
- 
 
+ 
+class PrivateOrder(BaseModel, db.Model):
+    '''私人订制'''
+    id = db.Column(db.Integer, primary_key=True) # id
+    avatar_url = db.Column(db.String(128), nullable=True) # 订制图片
+    title = db.Column(db.String(64), nullable=False) # 定制标题
 
 
     
