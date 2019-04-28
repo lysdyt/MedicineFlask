@@ -1,3 +1,3 @@
 # Medicine API 接口说明
 
-### 1. Users
+### 1. Passport
