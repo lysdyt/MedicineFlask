@@ -103,7 +103,7 @@ class Answer(BaseModel, db.Model):
     '''
     __tablename__ = 'mi_answer'
     id = db.Column(db.Integer, primary_key=True) # id
-    question_id = db.Column(db.Integer, db.ForeignKey('mi_answer.id'), nullable=False) # 问题id
+    question_id = db.Column(db.Integer, db.ForeignKey('mi_question.id'), nullable=False) # 问题id
     user_id = db.Column(db.Integer, db.ForeignKey('mi_user_profile.id'), nullable=True) # 病人id 可以为空
     expert_id = db.Column(db.Integer, db.ForeignKey('mi_expert_profile.id'), nullable=True) # 医生id 可以为空
     content = db.Column(db.String(255), nullable=False) # 回答内容
