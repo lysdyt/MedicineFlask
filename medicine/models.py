@@ -16,7 +16,7 @@ class BaseModel(object):
 class UserBaseModel(object):
     id = db.Column(db.Integer, primary_key=True) # 用户id
     name = db.Column(db.String(32)) # 用户名字
-    password = db.Column(db.String(32), nullable=False) # 用户密码
+    password = db.Column(db.String(128), nullable=False) # 用户密码
     phone = db.Column(db.String(11), nullable=False) # 用户手机号码， 用手机号码注册
     age = db.Column(db.String(3), nullable=True)  # 用户年龄
     email = db.Column(db.String(32), nullable=True) # 用户邮箱
@@ -34,6 +34,19 @@ class User(BaseModel, UserBaseModel, db.Model):
     status = db.Column(db.Enum('null', 'min', 'max')) # 健康， 亚健康， 不健康
     questions = db.relationship('Question', backref='user')
     answers = db.relationship('Answer', backref='user')
+
+    @property
+    def password_hash(self):
+        raise AttributeError('不能访问该属性')
+
+    @password_hash.setter
+    def password_hash(self, password):
+        # 给密码加密
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        # 校验密码是否正确
+        return check_password_hash(self.password, password)
 
 class Expert(BaseModel, UserBaseModel, db.Model):
     '''专家模型类'''
