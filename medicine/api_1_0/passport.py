@@ -23,17 +23,17 @@ def register():
     '''
     # 获取参数
     data = request.json
-    phone_num = data.get('phone_num')
+    phone = data.get('phone')
     phone_code = data.get('phone_code')
     password = data.get('password')
     password2 = data.get('password2')
 
     #  检查是否缺少参数
-    if not all([phone_num, phone_code, password, password2]):
+    if not all([phone, phone_code, password, password2]):
         return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
 
     # 验证手机号码是否正确
-    if not re.match('0?(13|14|15|17|18|19)[0-9]{9}', phone_num):
+    if not re.match('0?(13|14|15|17|18|19)[0-9]{9}', phone):
         return jsonify(re_code=RET.PARAMERR, msg='手机号码格式不正确')
 
     # 判断两次密码是否一致
