@@ -15,7 +15,7 @@ from medicine.models import User
 def register():
     '''用户注册接口
     :param json格式
-        1. phone_num
+        1. phone
         2. phone_code
         3. password
         4. password2
@@ -39,5 +39,39 @@ def register():
     # 判断两次密码是否一致
     if password != password2:
         return jsonify(re_code=RET.DATAERR, msg='用户两次密码不一致')
+
+    # 从redis中获取短信验证码
+    try:
+        phone_code_server = redis_conn.get('PhoneCode' + phone)
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='短信验证码查询错误')
+    
+    # 判断是否有效
+    if not phone_code_server:
+        return jsonify(re_code=RET.NODATA, msg='短信验证码不存在，或者达到有效期')
+    
+    # 判断短信验证码是否正确
+    if phone_code != phone_code_server:
+        return jsonify(re_code=RET.DATAERR, msg='短信验证码错误')
+    
+    # 新增对象
+    user = User()
+    user.name = phone
+    user.phone = phone
+    user.password_hash = password
+
+    try:
+        db.session.add(user)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback() # 事务回滚
+        return jsonify(re_code=RET.DBERR, msg='注册失败，用户已经存在')
+
+     # 8. 保持登录状态
+    session['user_id'] = user.id
+    session['name'] = phone
+    session['phone_num'] = phone
 
     return jsonify(re_code=RET.OK, msg='注册成功')
