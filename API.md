@@ -2,6 +2,35 @@
 
 ### 1. Passport
 
+#### 1.1 /register
+
+```js
+接口说明： 用户注册（包括医生）
+请求方式： post
+参数：
+    1. phone： 用户手机号码
+    2. phone_code： 短信验证码
+    3. password： 用户密码
+    4. password2： 再次输入密码
+注意：
+    1. 前端页面至少有短信验证码的获取
+
+返回：
+    {
+        "msg": "注册成功",
+        "re_code": "0"
+    }
+
+示例：
+http://127.0.0.1:5000/api/1.0/register
+data = {
+    "phone":"17608037***",
+	"phone_code":"003533",
+	"password":"mai",
+	"password2":"mai"
+}
+
+```
 
 
 ### 2. Verity
@@ -14,7 +43,8 @@
 参数：
   1. uuid：用户标示码
   2. last_uuid：用户上一次验证码的标示码
-  注意：如果不知道怎么生成，会将前端的uuid生成方法写进去
+注意：
+    1. 如果不知道怎么生成，会将前端的uuid生成方法写进去
 返回：
 	image图片格式
 示例：
@@ -44,7 +74,10 @@ function generateUUID() {
   1. phone:用户手机号码
   2. img_code_client: 用户图片验证码
   3. uuid: 用户标示码
-  注意：如果不知道怎么生成，参考/imageCode接口的说明文档
+注意：
+    1. 如果不知道怎么生成，参考/imageCode接口的说明文档
+    2. 前端至少有图片验证码
+       
 返回：
 	{
         "msg": "验证码发送成功",
