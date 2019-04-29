@@ -35,11 +35,31 @@ function generateUUID() {
 }
 ```
 
+#### 2.1. /smsCode 接口
 
+```js
+接口说明： 发送手机验证码
+请求方式：post
+参数：
+  1. phone:用户手机号码
+  2. img_code_client: 用户图片验证码
+  3. uuid: 用户标示码
+  注意：如果不知道怎么生成，参考/imageCode接口的说明文档
+返回：
+	{
+        "msg": "验证码发送成功",
+        "re_code": "0"
+    }
+示例：
+api:http://127.0.0.1:5000/api/1.0/smsCode
 
-
-
-
+data = {
+	"phone":"176080******",
+	"img_code_client":"3xfe",
+	"uuid":"123"
+}
+注意：json格式
+```
 
 
 
