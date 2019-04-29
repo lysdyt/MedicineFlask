@@ -10,6 +10,7 @@ from medicine import constants
 from medicine.models import User
 import re
 from medicine.utils.captcha.captcha import captcha
+from medicine.utils.send_sms import CCP
 
 @api.route('/imageCode')
 def get_image_code():
@@ -114,6 +115,12 @@ def send_sms_code():
      # 生成短信验证码
     sms_code = '%06d' % random.randint(0, 99999)
     current_app.logger.debug('短信验证码为：' + sms_code)
+
+    # 5.发送短信验证码            验证码         过期时间：容联的时间单位为:分   短信模板1
+    # result = CCP().send_sms(phone, [sms_code, constants.SMS_CODE_REDIS_EXPIRES/60], '1')
+    # if result != 1:
+    #     # 短信发送失败
+    #     return jsonify(re_code=RET.THIRDERR,msg='发送短信验证码失败')
 
     # 将短信验证码存储redis中
     try:
