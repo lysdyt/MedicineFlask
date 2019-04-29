@@ -58,16 +58,16 @@ def send_sms_code():
 
     # 接收参数
     data = request.json
-    phone_num = data.get('phone_num')
+    phone = data.get('phone')
     img_code_client = data.get('img_code_client')
     uuid = data.get('uuid')
 
     # 检测是否缺少参数
-    if not all([phone_num, img_code_client, uuid]):
+    if not all([phone, img_code_client, uuid]):
         return jsonify(re_code=RET.PARAMERR, msg='参数缺少')
 
     # 检查手机号格式是否正确
-    if not re.match('0?(13|14|15|17|18|19)[0-9]{9}', phone_num):
+    if not re.match('0?(13|14|15|17|18|19)[0-9]{9}', phone):
         return jsonify(re_code=RET.PARAMERR, msg='手机号码格式不正确')
 
      # 取出验证码，判断验证码是否正确
@@ -94,16 +94,16 @@ def send_sms_code():
         return jsonify(re_code=RET.DATAERR, msg='验证码输入有误')
 
      # 判断用户是否60秒重复发送短信验证码
-    try:
-        send_flag = redis_conn.get('SendPhoneCode' + phone_num)
-    except Exception as e:
-        current_app.logger.debug(e)
-    if send_flag is not None:
-        return jsonify(re_code=RET.REQERR, msg='请求过于频繁，请60秒后重试')
+    # try:
+    #     send_flag = redis_conn.get('SendPhoneCode' + phone_num)
+    # except Exception as e:
+    #     current_app.logger.debug(e)
+    # if send_flag is not None:
+    #     return jsonify(re_code=RET.REQERR, msg='请求过于频繁，请60秒后重试')
     
     # 判断用户是否注册
     try:
-        user = User.query.filter(User.phone_num == phone_num).first()
+        user = User.query.filter(User.phone == phone).first()
     except Exception as e:
         current_app.logger.debug(e)
         return jsonify(re_code=RET.DBERR, msg='查询数据库错误')
@@ -117,8 +117,8 @@ def send_sms_code():
 
     # 将短信验证码存储redis中
     try:
-        redis_conn.set('PhoneCode' + phone_num, sms_code, constants.SMS_CODE_REDIS_EXPIRES)
-        redis_conn.set('SendPhoneCode'+ phone_num, 1, constants.SEND_SMS_REDIS_EXPIRES) # 验证60秒的标志
+        redis_conn.set('PhoneCode' + phone, sms_code, constants.SMS_CODE_REDIS_EXPIRES)
+        redis_conn.set('SendPhoneCode'+ phone, 1, constants.SEND_SMS_REDIS_EXPIRES) # 验证60秒的标志
 
     except Exception as e:
         current_app.logger.debug(e)
