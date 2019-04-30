@@ -95,7 +95,7 @@ def login():
         return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
 
     # 判断手机号码是否正确
-    if not re.match('0?(13|14|15|17|18|19)[0-9]{9}', phone_num):
+    if not re.match('0?(13|14|15|17|18|19)[0-9]{9}', phone):
         return jsonify(re_code=RET.PARAMERR, msg='手机号码格式不正确')
 
     # 判断用户是否存在
@@ -120,3 +120,14 @@ def login():
 
     return jsonify(re_code=RET.OK, msg='登陆成功')
     
+@api.route('/sessions',methods=['DELETE'])
+@login_required     #登录校验
+def logout():
+    """退出登录功能：
+    删除session
+    :return: 返回响应，跳转首页
+    """
+    session.pop('user_id')
+    session.pop('name')
+    session.pop('phone_num')
+    return jsonify(re_code=RET.OK,msg='退出成功')
