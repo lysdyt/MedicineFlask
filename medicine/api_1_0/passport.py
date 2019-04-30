@@ -9,7 +9,7 @@ from medicine.utils.response_code import RET
 import re
 from medicine import redis_conn, db
 from medicine.models import User
-
+from medicine.utils.common import login_required
 
 @api.route('/register', methods=['POST'])
 def register():
@@ -87,8 +87,8 @@ def login():
     '''
     # 获取参数
     data = request.json
-    phone = data.get('phone', default=None)
-    password = data.get('password', default=None)
+    phone = data.get('phone')
+    password = data.get('password')
 
     # 判断是否缺少参数
     if not all([phone, password]):
