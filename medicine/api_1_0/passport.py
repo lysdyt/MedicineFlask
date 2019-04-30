@@ -129,5 +129,5 @@ def logout():
     """
     session.pop('user_id')
     session.pop('name')
-    session.pop('phone_num')
+    session.pop('phone')
     return jsonify(re_code=RET.OK,msg='退出成功')
