@@ -54,8 +54,21 @@ class Expert(BaseModel, UserBaseModel, db.Model):
 
     grade = db.Column(db.Enum('professor', 'assprofessor')) # 教授， 副教授
     major = db.Column(db.String(32), nullable=True) # 主治
-    position_id = db.Column(db.Integer, db.ForeignKey('mi_position.id'),nullable=False) # 外键 关联position
+    position_id = db.Column(db.Integer, db.ForeignKey('mi_position.id'),nullable=True) # 外键 关联position
     answers = db.relationship('Answer', backref='expert')
+
+    @property
+    def password_hash(self):
+        raise AttributeError('不能访问该属性')
+
+    @password_hash.setter
+    def password_hash(self, password):
+        # 给密码加密
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        # 校验密码是否正确
+        return check_password_hash(self.password, password)
 
 class Position(BaseModel, db.Model):
     '''专家职位类'''
