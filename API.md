@@ -31,11 +31,48 @@ data = {
 }
 
 ```
+#### 1.2 /sessions 接口
+
+```js
+接口说明：用户登陆
+请求方式：post
+参数：
+    1. phone：用户手机号码
+    2. password：用户密码
+返回：
+    {
+        "msg": "登陆成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/sessions
+data = {
+	"phone":"176080371**",
+	"password":"mai"
+}
+
+```
+
+#### 1.3 /sessions 接口
+
+```js
+接口说明：用户注销
+请求方式：delete
+参数：none
+返回：
+    {
+        "msg": "退出成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/sessions
+
+```
 
 
 ### 2. Verity
 
-#### 2.1. /imageCode 接口
+#### 2.1 /imageCode 接口
 
 ```js
 接口说明： 获取验证码图片
@@ -65,7 +102,7 @@ function generateUUID() {
 }
 ```
 
-#### 2.1. /smsCode 接口
+#### 2.1 /smsCode 接口
 
 ```js
 接口说明： 发送手机验证码
