@@ -8,7 +8,7 @@ from flask import request, jsonify, current_app, session
 from medicine.utils.response_code import RET
 import re
 from medicine import redis_conn, db
-from medicine.models import User
+from medicine.models import User, Expert
 from medicine.utils.common import login_required
 
 @api.route('/register', methods=['POST'])
@@ -19,6 +19,7 @@ def register():
         2. phone_code
         3. password
         4. password2
+        5. types
     :return: json
     '''
     # 获取参数
@@ -27,9 +28,10 @@ def register():
     phone_code = data.get('phone_code')
     password = data.get('password')
     password2 = data.get('password2')
+    types = data.get('types')
 
     #  检查是否缺少参数
-    if not all([phone, phone_code, password, password2]):
+    if not all([phone, phone_code, password, password2, types]):
         return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
 
     # 验证手机号码是否正确
@@ -56,7 +58,12 @@ def register():
         return jsonify(re_code=RET.DATAERR, msg='短信验证码错误')
     
     # 新增对象
-    user = User()
+    if types == 'patient':
+        user = User()
+    elif types == 'expert':
+        user = Expert()
+    else:
+        return jsonify(re_code=RET.PARAMERR, msg='对象类型错误')
     user.name = phone
     user.phone = phone
     user.password_hash = password
