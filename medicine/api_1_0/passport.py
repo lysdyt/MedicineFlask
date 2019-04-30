@@ -75,3 +75,48 @@ def register():
     session['phone_num'] = phone
 
     return jsonify(re_code=RET.OK, msg='注册成功')
+
+
+@api.route('sessions', methods=['POST'])
+def login():
+    '''用户登陆接口
+    :param json
+        1. phone: 手机号码
+        2. password: 用户密码
+    :return: json
+    '''
+    # 获取参数
+    data = request.json
+    phone = data.get('phone', default=None)
+    password = data.get('password', default=None)
+
+    # 判断是否缺少参数
+    if not all([phone, password]):
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+
+    # 判断手机号码是否正确
+    if not re.match('0?(13|14|15|17|18|19)[0-9]{9}', phone_num):
+        return jsonify(re_code=RET.PARAMERR, msg='手机号码格式不正确')
+
+    # 判断用户是否存在
+
+    try:
+        user = User.query.filter(User.phone == phone).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
+        
+    if not user:
+        return jsonify(re_code=RET.NODATA, msg='用户不存在')
+    
+    if not user.check_password(password):
+        return jsonify(re_code=RET.PARAMERR, msg='密码错误')
+
+    # 存session
+
+    session['user_id'] = user.id
+    session['name'] = user.name
+    session['phone'] = user.phone
+
+    return jsonify(re_code=RET.OK, msg='登陆成功')
+    
