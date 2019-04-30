@@ -12,6 +12,7 @@
     2. phone_code： 短信验证码
     3. password： 用户密码
     4. password2： 再次输入密码
+    5. types：病人还是专家（patient or expert）
 注意：
     1. 前端页面至少有短信验证码的获取
 
@@ -27,7 +28,8 @@ data = {
     "phone":"17608037***",
 	"phone_code":"003533",
 	"password":"mai",
-	"password2":"mai"
+    "password2":"mai",
+    "types":"patient"
 }
 
 ```
