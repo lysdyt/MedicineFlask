@@ -62,6 +62,8 @@ class User(BaseModel, UserBaseModel, db.Model):
             'grade': self.grade,
             'status': self.status,
         }
+        if self.avatar_url:
+            user_info['avatar_url'] = constants.QINIU_DOMIN_PREFIX + self.avatar_url
         return user_info
 
 class Expert(BaseModel, UserBaseModel, db.Model):
