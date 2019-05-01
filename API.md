@@ -134,7 +134,33 @@ data = {
 ```
 
 
+### 3. Profile
 
+#### 3.1 /users 接口
+
+```js
+接口说明： 获取用户基本信息
+请求方式：get
+注意：前提已登陆
+返回：
+    {
+        "msg": "查询成功",
+        "re_code": "0",
+        "user": {
+            "address": null,
+            "age": null,
+            "avatar_url": null,
+            "grade": null,
+            "level": null,
+            "name": "176080371**",
+            "phone": "176080371**",
+            "status": null,
+            "user_id": 1
+        }
+    }
+示例：
+api:http://127.0.0.1:5000/api/1.0/users
+```
 
 
 ### 状态码表
