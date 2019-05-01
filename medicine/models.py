@@ -48,6 +48,22 @@ class User(BaseModel, UserBaseModel, db.Model):
         # 校验密码是否正确
         return check_password_hash(self.password, password)
 
+    def to_dict(self):
+        '''返回一个用户信息字典接口，方便外界调用
+        '''
+        user_info = {
+            'user_id': self.id,
+            'name': self.name,
+            'phone': self.phone,
+            'avatar_url': self.avatar_url,
+            'age': self.age,
+            'address': self.address,
+            'level': self.level,
+            'grade': self.grade,
+            'status': self.status,
+        }
+        return user_info
+
 class Expert(BaseModel, UserBaseModel, db.Model):
     '''专家模型类'''
     __tablename__ = 'mi_expert_profile'
