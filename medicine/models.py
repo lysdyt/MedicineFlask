@@ -4,7 +4,7 @@
 
 
 from datetime import datetime
-from . import db
+from . import db, constants
 from werkzeug.security import generate_password_hash,check_password_hash
 
 class BaseModel(object):
