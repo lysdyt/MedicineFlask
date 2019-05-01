@@ -11,3 +11,6 @@ SMS_CODE_REDIS_EXPIRES = 300
 
 # 短信验证码reids间隔，单位：秒
 SEND_SMS_REDIS_EXPIRES = 60
+
+# 七牛空间域名
+QINIU_DOMIN_PREFIX = "http://ponpj5pp9.bkt.clouddn.com/"
