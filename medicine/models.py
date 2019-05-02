@@ -87,6 +87,24 @@ class Expert(BaseModel, UserBaseModel, db.Model):
     def check_password(self, password):
         # 校验密码是否正确
         return check_password_hash(self.password, password)
+    
+    def to_dict(self):
+        '''返回一个expert信息字典接口，方便外界调用
+        '''
+        expert_info = {
+            'user_id': self.id,
+            'name': self.name,
+            'phone': self.phone,
+            'avatar_url': self.avatar_url,
+            'age': self.age,
+            'address': self.address,
+            'grade': self.grade,
+            'major': self.major
+        }
+        if self.avatar_url:
+            user_info['avatar_url'] = constants.QINIU_DOMIN_PREFIX + self.avatar_url
+        return user_info
+
 
 class Position(BaseModel, db.Model):
     '''专家职位类'''
