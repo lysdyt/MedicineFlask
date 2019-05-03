@@ -38,7 +38,7 @@ def get_expert_info():
     '''
     user_id = g.user_id
     try:
-        user = User.query.filter(Expert.id == user_id).first()
+        user = Expert.query.filter(Expert.id == user_id).first()
     except Exception as e:
         current_app.logger.debug(e)
         return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
@@ -48,4 +48,4 @@ def get_expert_info():
 
     # 查询用户信息
     user_info = user.to_dict()
-    return jsonify(re_code=RET.OK, msg='查询成功', user=user_info)
+    return jsonify(re_code=RET.OK, msg='查询成功', expert=user_info)
