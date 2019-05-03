@@ -163,6 +163,34 @@ api:http://127.0.0.1:5000/api/1.0/users
 ```
 
 
+
+#### 3.2 /experts 接口
+
+```js
+接口说明： 获取专家基本信息
+请求方式：get
+注意：前提已登陆
+返回：
+    {
+        "msg": "查询成功",
+        "re_code": "0",
+        "user": {
+            "address": null,
+            "age": null,
+            "avatar_url": null,
+            "grade": null,
+            "major": null,
+            "name": "17608037125",
+            "phone": "17608037125",
+            "user_id": 1
+        }
+    }
+示例：
+api:http://127.0.0.1:5000/api/1.0/experts
+```
+
+
+
 ### 状态码表
 
 ```python
