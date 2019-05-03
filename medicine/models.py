@@ -102,8 +102,8 @@ class Expert(BaseModel, UserBaseModel, db.Model):
             'major': self.major
         }
         if self.avatar_url:
-            user_info['avatar_url'] = constants.QINIU_DOMIN_PREFIX + self.avatar_url
-        return user_info
+            expert_info['avatar_url'] = constants.QINIU_DOMIN_PREFIX + self.avatar_url
+        return expert_info
 
 
 class Position(BaseModel, db.Model):
