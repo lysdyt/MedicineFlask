@@ -114,7 +114,13 @@ def login():
         return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
         
     if not user:
-        return jsonify(re_code=RET.NODATA, msg='用户不存在')
+        try:
+            user = Expert.query.filter(Expert.phone == phone).first()
+        except Exception as e:
+            current_app.logger.debug(e)
+            return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
+        if not user:
+            return jsonify(re_code=RET.NODATA, msg='用户不存在')
     
     if not user.check_password(password):
         return jsonify(re_code=RET.PARAMERR, msg='密码错误')
