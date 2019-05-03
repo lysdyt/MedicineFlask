@@ -21,8 +21,28 @@ def get_user_info():
         user = User.query.filter(User.id == user_id).first()
     except Exception as e:
         current_app.logger.debug(e)
-        return jsonify(re_code=RET.DBERR, msg='数据库查询错我')
+        return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
 
+    if not user:
+        return jsonify(re_code=RET.NODATA, msg='用户不存在')
+
+    # 查询用户信息
+    user_info = user.to_dict()
+    return jsonify(re_code=RET.OK, msg='查询成功', user=user_info)
+
+@api.route('experts')
+@login_required
+def get_expert_info():
+    '''获取专家信息
+    :return: json
+    '''
+    user_id = g.user_id
+    try:
+        user = User.query.filter(Expert.id == user_id).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
+    
     if not user:
         return jsonify(re_code=RET.NODATA, msg='用户不存在')
 
