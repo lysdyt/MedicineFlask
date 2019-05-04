@@ -8,11 +8,11 @@ from flask import request, jsonify, current_app, session
 from medicine.utils.response_code import RET
 from medicine import redis_conn, db
 from medicine.utils.common import login_required
-from medicine.models import User, Expert
+from medicine.models import User, Expert, Position
 
 
-@api.route('/expertTypes')
-def get_expert_types():
+@api.route('/positions')
+def get_positions():
     '''获取专家类型
     :param 1. page
            2. count
@@ -21,4 +21,17 @@ def get_expert_types():
     page = request.args.get('page', '1')
     count = request.args.get('count', '5')
     try:
-        expert_pages = 
+        expert_pages = Position.query.order_by(Position.create_time.desc()).paginate(int(page), int(count), error_out=False)
+        positions = expert_pages.items
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
+
+    if len(positions) == 0:
+        return jsonify(re_code=RET.NODATA, msg='没有数据')
+
+    positions_list = []
+    for position in positions:
+        positions_list.append(position.to_dict())
+    
+    return jsonify(re_code=RET.OK, msg='请求成功', data=positions_list)
