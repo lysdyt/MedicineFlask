@@ -115,6 +115,13 @@ class Position(BaseModel, db.Model):
     experts = db.relationship('Expert', backref='position') # 关系  一对多 一个职位对应多个专家 不考虑多对多
 
 
+    def to_dict(self):
+        '''外界调用方法
+        '''
+        position_info = {
+            'position_id': self.id,
+            'nickname': self.nickname
+        }
 class Essay(BaseModel, db.Model):
     '''软文'''
     __tablename__ = 'mi_essay'
