@@ -189,7 +189,42 @@ api:http://127.0.0.1:5000/api/1.0/users
 api:http://127.0.0.1:5000/api/1.0/experts
 ```
 
+### 4. Position
 
+#### 4.1 positions 接口
+
+```js
+接口说明： 获取专家职位名称
+请求方式：get
+返回：
+    {
+        "data": {
+            "current_items": 3,
+            "current_page": 1,
+            "data": [
+                {
+                    "nickname": "外科专家",
+                    "position_id": 7
+                },
+                {
+                    "nickname": "西医专家",
+                    "position_id": 6
+                },
+                {
+                    "nickname": "内科专家",
+                    "position_id": 5
+                }
+            ],
+            "has_next": true,
+            "pages": 3,
+            "total": 7
+        },
+        "msg": "请求成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/positions?page=1&count=3
+```
 
 ### 状态码表
 
