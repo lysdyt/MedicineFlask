@@ -122,6 +122,8 @@ class Position(BaseModel, db.Model):
             'position_id': self.id,
             'nickname': self.nickname
         }
+        return position_info
+        
 class Essay(BaseModel, db.Model):
     '''软文'''
     __tablename__ = 'mi_essay'
