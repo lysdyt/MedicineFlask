@@ -33,5 +33,12 @@ def get_positions():
     positions_list = []
     for position in positions:
         positions_list.append(position.to_dict())
-    
-    return jsonify(re_code=RET.OK, msg='请求成功', data=positions_list)
+    positions_info = {
+        'data': positions_list,
+        'current_items': len(positions),
+        'current_page': expert_pages.page,
+        'total': expert_pages.total,
+        'pages': expert_pages.pages,
+        'has_next': expert_pages.has_next
+    }
+    return jsonify(re_code=RET.OK, msg='请求成功', data=positions_info)
