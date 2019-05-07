@@ -231,6 +231,8 @@ http://127.0.0.1:5000/api/1.0/positions?page=1&count=3
 ```js
 接口说明： 添加职位名称
 请求方式：post
+参数：
+    1. nickname: 职位名称
 返回：
     {
         "msg": "添加成功",
@@ -248,6 +250,8 @@ data = {
 ```js
 接口说明： 删除职位名称
 请求方式：post
+参数：
+    1. position_id: 职位id
 返回：
     {
         "msg": "删除成功",
