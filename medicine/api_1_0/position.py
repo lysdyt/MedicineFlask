@@ -109,3 +109,28 @@ def del_position():
         return jsonify(re_code=RET.DBERR, msg='删除职位失败')
 
     return jsonify(re_code=RET.OK, msg='删除成功')
+
+@api.route('/allPositions')
+def get_all_positions():
+    '''获取全部职位
+    '''
+    positions_list = []
+
+    try:
+        positions = Position.query.all()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='数据库错误')
+    
+    if not positions:
+        return jsonify(re_code=RET.NODATA, msg='没有数据')
+    
+    for position in positions:
+        positions_list.append(position.to_dict())
+    
+    positions_info = {
+        'data': positions_list,
+        'num': len(positions_list)
+    }
+    
+    return jsonify(re_code=RET.OK, msg='返回成功', data=positions_info)
