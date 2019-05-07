@@ -21,7 +21,8 @@ def get_positions():
     page = request.args.get('page', '1')
     count = request.args.get('count', '5')
     try:
-        expert_pages = Position.query.order_by(Position.create_time.desc()).paginate(int(page), int(count), error_out=False)
+        expert_pages = Position.query.order_by(Position.create_time.desc()).paginate(int(page), 
+                                                int(count), error_out=False)
         positions = expert_pages.items
     except Exception as e:
         current_app.logger.debug(e)
@@ -42,3 +43,37 @@ def get_positions():
         'has_next': expert_pages.has_next
     }
     return jsonify(re_code=RET.OK, msg='请求成功', data=positions_info)
+
+@api.route('/addPosition', methods=['POST'])
+def add_position():
+    '''添加职位
+    '''
+    data = request.json
+    nickname = data.get('nickname')
+    # 检测参数
+    if not nickname:
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+
+    # 判断是否已经存在
+    try:
+        position = Position.query.filter(Position.nickname == nickname).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
+    
+    if position:
+        return jsonify(re_code=RET.PARAMERR, msg='职位已经存在')
+    
+    position = Position()
+    position.nickname = nickname
+
+    # 添加
+    try:
+        db.session.add(position)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback() # 事务回滚
+        return jsonify(re_code=RET.DBERR, msg='添加职位失败')
+
+    return jsonify(re_code=RET.OK, msg='添加成功')
