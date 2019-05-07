@@ -77,3 +77,35 @@ def add_position():
         return jsonify(re_code=RET.DBERR, msg='添加职位失败')
 
     return jsonify(re_code=RET.OK, msg='添加成功')
+
+@api.route('/delPosition', methods=['POST'])
+def del_position():
+    '''删除职位
+    '''
+    data = request.json
+    position_id = data.get('position_id')
+
+    # 检测参数
+    if not position_id:
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+
+    
+    try:
+        position = Position.query.filter(Position.id == position_id).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
+    
+    if not position:
+        return jsonify(re_code=RET.PARAMERR, msg='职位不存在')
+
+    # 删除
+    try:
+        db.session.delete(position)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback() # 事务回滚
+        return jsonify(re_code=RET.DBERR, msg='删除职位失败')
+
+    return jsonify(re_code=RET.OK, msg='删除成功')
