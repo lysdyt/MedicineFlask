@@ -226,6 +226,40 @@ api:http://127.0.0.1:5000/api/1.0/experts
 http://127.0.0.1:5000/api/1.0/positions?page=1&count=3
 ```
 
+#### 4.2 addPosition 接口
+
+```js
+接口说明： 添加职位名称
+请求方式：post
+返回：
+    {
+        "msg": "添加成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/addPosition
+data = {
+	"nickname":"头疼专家"
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### 状态码表
 
 ```python
