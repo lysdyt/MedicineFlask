@@ -259,6 +259,55 @@ data = {
 	"position_id": 8
 }
 ```
+#### 4.4 allPositions 接口
+
+```js
+接口说明： 获取全部职位名称
+请求方式：get
+返回：
+{
+    "data": {
+        "data": [
+            {
+                "nickname": "中医专家",
+                "position_id": 1
+            },
+            {
+                "nickname": "养生保健专家",
+                "position_id": 2
+            },
+            {
+                "nickname": "心理专家",
+                "position_id": 3
+            },
+            {
+                "nickname": "骨科专家",
+                "position_id": 4
+            },
+            {
+                "nickname": "内科专家",
+                "position_id": 5
+            },
+            {
+                "nickname": "西医专家",
+                "position_id": 6
+            },
+            {
+                "nickname": "外科专家",
+                "position_id": 7
+            }
+        ],
+        "num": 7
+    },
+    "msg": "返回成功",
+    "re_code": "0"
+}
+示例：
+http://127.0.0.1:5000/api/1.0/allPositions
+
+```
+
+
 
 
 
