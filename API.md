@@ -243,6 +243,26 @@ data = {
 }
 ```
 
+#### 4.3 delPosition 接口
+
+```js
+接口说明： 删除职位名称
+请求方式：post
+返回：
+    {
+        "msg": "删除成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/delPosition
+data = {
+	"position_id": 8
+}
+```
+
+
+
+
 
 
 
