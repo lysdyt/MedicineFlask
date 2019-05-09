@@ -182,6 +182,17 @@ class Video (BaseModel, db.Model):
     video_url = db.Column(db.String(128), nullable=True) # 视频链接
     medicine_id = db.Column(db.Integer, db.ForeignKey('mi_medicine_shop.id'),nullable=False) # 商家id
 
+    def to_dict(self):
+        '''外界调用
+        '''
+        video_info = {
+            'video_id': self.id,
+            'avatar_url': self.avatar_url,
+            'video_url': self.video_url,
+            'medicine_id': self.medicine_id
+        }
+        return video_info
+
 
 class Question(BaseModel, db.Model):
     '''问题
