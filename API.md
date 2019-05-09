@@ -191,7 +191,7 @@ api:http://127.0.0.1:5000/api/1.0/experts
 
 ### 4. Position
 
-#### 4.1 positions 接口
+#### 4.1 /positions 接口
 
 ```js
 接口说明： 分页获取专家职位
@@ -241,7 +241,7 @@ api:http://127.0.0.1:5000/api/1.0/experts
 http://127.0.0.1:5000/api/1.0/positions?page=1&count=3
 ```
 
-#### 4.2 addPosition 接口
+#### 4.2 /addPosition 接口
 
 ```js
 接口说明： 添加职位名称
@@ -260,7 +260,7 @@ data = {
 }
 ```
 
-#### 4.3 delPosition 接口
+#### 4.3 /delPosition 接口
 
 ```js
 接口说明： 删除职位名称
@@ -278,7 +278,7 @@ data = {
 	"position_id": 8
 }
 ```
-#### 4.4 allPositions 接口
+#### 4.4 /allPositions 接口
 
 ```js
 接口说明： 获取全部职位名称
@@ -328,7 +328,7 @@ http://127.0.0.1:5000/api/1.0/allPositions
 
 ### 5. Shop
 
-#### 5.1 shops 接口
+#### 5.1 /shops 接口
 
 
 
@@ -398,7 +398,119 @@ http://127.0.0.1:5000/api/1.0/shops?page=1&count=3
 ```
 
 
+#### 5.2 /addShop 接口
 
+```js
+接口说明： 添加药膳
+请求方式：post
+参数：
+    1. name: 药膳名称
+    2. activity_list: 活动信息
+返回：
+    {
+        "msg": "添加成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/addShop
+data = {
+	"name":"达克宁药膳",
+	"activity_list":"达克达克"
+}
+```
+
+
+#### 5.3 /delShop 接口
+
+```js
+接口说明： 删除药膳
+请求方式：post
+参数：
+    1. shop_id: 药膳id
+返回：
+    {
+        "msg": "删除成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/delShop
+data = {
+	"shop_id": 11
+}
+```
+
+
+#### 5.4 /allShops 接口
+
+
+```js
+接口说明： 获取全部药膳
+请求方式：get
+
+返回：
+{
+    "data": {
+        "data": [
+            {
+                "activity_list": "买一赠一",
+                "name": "抗生素药膳",
+                "shop_id": 1
+            },
+            {
+                "activity_list": "包治百病",
+                "name": "心脑血管药膳",
+                "shop_id": 2
+            },
+            {
+                "activity_list": "肠胃舒适",
+                "name": "消化系统药膳",
+                "shop_id": 3
+            },
+            {
+                "activity_list": "呼吸流畅",
+                "name": "呼吸系统药膳",
+                "shop_id": 4
+            },
+            {
+                "activity_list": "风不存在",
+                "name": "抗风湿类药膳",
+                "shop_id": 5
+            },
+            {
+                "activity_list": "永不咳嗽",
+                "name": "咳嗽药膳",
+                "shop_id": 6
+            },
+            {
+                "activity_list": "永不感冒",
+                "name": "感冒药膳",
+                "shop_id": 7
+            },
+            {
+                "activity_list": "永不发烧",
+                "name": "退烧药膳",
+                "shop_id": 8
+            },
+            {
+                "activity_list": "永不发热",
+                "name": "退热贴",
+                "shop_id": 9
+            },
+            {
+                "activity_list": "胃口较好",
+                "name": "胃药膳",
+                "shop_id": 10
+            }
+        ],
+        "num": 10
+    },
+    "msg": "返回成功",
+    "re_code": "0"
+}
+示例：
+http://127.0.0.1:5000/api/1.0/allShops
+
+```
 
 
 
