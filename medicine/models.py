@@ -99,7 +99,9 @@ class Expert(BaseModel, UserBaseModel, db.Model):
             'age': self.age,
             'address': self.address,
             'grade': self.grade,
-            'major': self.major
+            'major': self.major,
+            'position_id': self.position_id,
+            
         }
         if self.avatar_url:
             expert_info['avatar_url'] = constants.QINIU_DOMIN_PREFIX + self.avatar_url
@@ -120,7 +122,8 @@ class Position(BaseModel, db.Model):
         '''
         position_info = {
             'position_id': self.id,
-            'nickname': self.nickname
+            'nickname': self.nickname,
+            'experts': self.experts
         }
         return position_info
         
