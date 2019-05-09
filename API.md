@@ -197,31 +197,46 @@ api:http://127.0.0.1:5000/api/1.0/experts
 接口说明： 获取专家职位名称
 请求方式：get
 返回：
-    {
-        "data": {
-            "current_items": 3,
-            "current_page": 1,
-            "data": [
-                {
-                    "nickname": "外科专家",
-                    "position_id": 7
-                },
-                {
-                    "nickname": "西医专家",
-                    "position_id": 6
-                },
-                {
-                    "nickname": "内科专家",
-                    "position_id": 5
-                }
-            ],
-            "has_next": true,
-            "pages": 3,
-            "total": 7
-        },
-        "msg": "请求成功",
-        "re_code": "0"
-    }
+{
+    "data": {
+        "current_items": 3,
+        "current_page": 1,
+        "data": [
+            {
+                "experts": [
+                    {
+                        "address": null,
+                        "age": null,
+                        "avatar_url": null,
+                        "grade": null,
+                        "major": null,
+                        "name": "17608037125",
+                        "phone": "17608037125",
+                        "position_id": 7,
+                        "user_id": 1
+                    }
+                ],
+                "nickname": "外科专家",
+                "position_id": 7
+            },
+            {
+                "experts": [],
+                "nickname": "西医专家",
+                "position_id": 6
+            },
+            {
+                "experts": [],
+                "nickname": "内科专家",
+                "position_id": 5
+            }
+        ],
+        "has_next": true,
+        "pages": 3,
+        "total": 7
+    },
+    "msg": "请求成功",
+    "re_code": "0"
+}
 示例：
 http://127.0.0.1:5000/api/1.0/positions?page=1&count=3
 ```
