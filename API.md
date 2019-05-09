@@ -194,7 +194,7 @@ api:http://127.0.0.1:5000/api/1.0/experts
 #### 4.1 positions 接口
 
 ```js
-接口说明： 获取专家职位名称
+接口说明： 分页获取专家职位
 请求方式：get
 返回：
 {
@@ -325,6 +325,81 @@ data = {
 http://127.0.0.1:5000/api/1.0/allPositions
 
 ```
+
+### 5. Shop
+
+#### 5.1 shops 接口
+
+
+
+```js
+接口说明： 分页获取药膳
+请求方式：get
+返回：
+{
+    "data": {
+        "current_items": 3,
+        "current_page": 1,
+        "data": [
+            {
+                "activity_list": "胃口较好",
+                "experts": [
+                    {
+                        "avatar_url": null,
+                        "medicine_id": 10,
+                        "video_id": 1,
+                        "video_url": "https://v.qq.com/x/page/t0675upujfj.html"
+                    },
+                    {
+                        "avatar_url": null,
+                        "medicine_id": 10,
+                        "video_id": 2,
+                        "video_url": "https://v.qq.com/x/page/s0511q7e1zb.html"
+                    }
+                ],
+                "name": "胃药膳",
+                "shop_id": 10
+            },
+            {
+                "activity_list": "永不发热",
+                "experts": [
+                    {
+                        "avatar_url": null,
+                        "medicine_id": 9,
+                        "video_id": 3,
+                        "video_url": "https://v.qq.com/x/page/w07583hab8o.html"
+                    },
+                    {
+                        "avatar_url": null,
+                        "medicine_id": 9,
+                        "video_id": 4,
+                        "video_url": "https://v.qq.com/x/page/q0844qbpld7.html"
+                    }
+                ],
+                "name": "退热贴",
+                "shop_id": 9
+            },
+            {
+                "activity_list": "永不发烧",
+                "experts": [],
+                "name": "退烧药膳",
+                "shop_id": 8
+            }
+        ],
+        "has_next": true,
+        "pages": 4,
+        "total": 10
+    },
+    "msg": "请求成功",
+    "re_code": "0"
+}
+示例：
+http://127.0.0.1:5000/api/1.0/shops?page=1&count=3
+```
+
+
+
+
 
 
 
