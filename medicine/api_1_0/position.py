@@ -34,10 +34,10 @@ def get_positions():
     positions_list = []
     for position in positions:
         experts_list = []
-        position_dict = position.to_dict()
-        experts = position_dict['experts']
+        experts = position.get_experts()
         for expert in experts:
             experts_list.append(expert.to_dict())
+        position_dict = position.to_dict()
         position_dict['experts'] = experts_list
         positions_list.append(position_dict)
 
