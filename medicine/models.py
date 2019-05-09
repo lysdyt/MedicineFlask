@@ -123,9 +123,13 @@ class Position(BaseModel, db.Model):
         position_info = {
             'position_id': self.id,
             'nickname': self.nickname,
-            'experts': self.experts
         }
         return position_info
+
+    def get_experts(self):
+        '''获取experts
+        '''
+        return self.experts
         
 class Essay(BaseModel, db.Model):
     '''软文'''
@@ -152,6 +156,22 @@ class MedicineShop(BaseModel, db.Model):
     name = db.Column(db.String(64), nullable=False) # 商家名字
     activity_list = db.Column(db.String(255), nullable=True) # 活动列表
     videos = db.relationship('Video', backref='medicine_shop') # 一对多， 一个商家有多个视频
+
+    def to_dict(self):
+        '''外界调用接口
+        '''
+        shop_info = {
+            'shop_id': self.id,
+            'name': self.name,
+            'activity_list': self.activity_list,
+            
+        }
+        return shop_info
+    
+    def get_videos(self):
+        '''获取videos
+        '''
+        return self.videos
 
 class Video (BaseModel, db.Model):
     '''视频类
