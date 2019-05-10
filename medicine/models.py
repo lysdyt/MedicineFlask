@@ -140,6 +140,7 @@ class Essay(BaseModel, db.Model):
     abstract = db.Column(db.String(255), nullable=False) # 文章摘要
     cover_img_url = db.Column(db.String(128), nullable=True) # 文章封面
     content = db.Column(db.Text, nullable=False) # 文章内容
+    types = db.Column(db.Enum('common', 'shop')) # 普通软文 商家优惠活动
 
  
 class PrivateOrder(BaseModel, db.Model):
