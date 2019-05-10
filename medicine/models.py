@@ -139,7 +139,7 @@ class Essay(BaseModel, db.Model):
     title = db.Column(db.String(64), nullable=False) # 文章标题
     abstract = db.Column(db.String(255), nullable=False) # 文章摘要
     cover_img_url = db.Column(db.String(128), nullable=True) # 文章封面
-    content_url = db.Column(db.Text, nullable=False) # 文章内容
+    content = db.Column(db.Text, nullable=False) # 文章内容
 
  
 class PrivateOrder(BaseModel, db.Model):
