@@ -51,3 +51,47 @@ def add_essay():
 
     return jsonify(re_code=RET.OK, msg='添加成功')
     
+@api.route('/essays')
+def get_essays():
+    '''分页获取相关软文
+    :param page: 页码
+            count: 数量
+            types: 类型
+    :return: json
+    '''
+    page = request.args.get('page', '1')
+    count = request.args.get('count', '5')
+    types = request.args.get('types', 'common')
+
+    # 判断是否缺少参数
+    if not all([page, count, types]):
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+
+    # 判断types参数是否符合
+    if types != 'common' and types != 'shop':
+        return jsonify(re_code=RET.PARAMERR, msg='types不符合要求')
+
+    try:
+        essay_pages = Essay.query.filter(Essay.types == types).order_by(Essay.create_time.desc()).paginate(int(page), 
+                                                int(count), error_out=False)
+        essays = essay_pages.items
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
+
+    if len(essays) == 0:
+        return jsonify(re_code=RET.NODATA, msg='没有数据')
+
+    essays_list = []
+    for essay in essays:
+        essays_list.append(essay.to_dict_section())
+    
+    essays_info = {
+        'data': essays_list,
+        'current_items': len(essays_list),
+        'current_page': essay_pages.page,
+        'total': essay_pages.total,
+        'pages': essay_pages.pages,
+        'has_next': essay_pages.has_next
+    }
+    return jsonify(re_code=RET.OK, msg='请求成功', data=essays_info)
