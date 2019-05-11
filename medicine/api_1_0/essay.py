@@ -95,3 +95,26 @@ def get_essays():
         'has_next': essay_pages.has_next
     }
     return jsonify(re_code=RET.OK, msg='请求成功', data=essays_info)
+
+@api.route('/byIdEssay')
+def get_id_essay():
+    '''通过id获取文章   请求方式：get
+    :param essay_id: 软文id
+    :return: json
+    '''
+    essay_id = request.args.get('essay_id')
+
+    if not essay_id:
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+    
+    try:
+        essay = Essay.query.filter(Essay.id == essay_id).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='查询错误')
+    
+    if not essay:
+        return jsonify(re_code=RET.NODATA, msg='软文不存在')
+    
+    essay_info = essay.to_dict_content()
+    return jsonify(re_code=RET.OK, msg='请求成功', data=essay_info)
