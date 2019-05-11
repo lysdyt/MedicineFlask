@@ -150,7 +150,24 @@ class Essay(BaseModel, db.Model):
             'title': self.title,
             'abstract': self.abstract,
             'cover_img_url': self.cover_img_url,
-            'types': self.types
+            'types': self.types,
+            'create_time': self.create_time,
+            'update_time': self.update_time
+        }
+        if self.cover_img_url:
+            essay_info['cover_img_url'] = constants.QINIU_DOMIN_PREFIX + self.cover_img_url
+        return essay_info
+
+    def to_dict_content(self):
+        essay_info = {
+            'essay_id': self.id,
+            'title': self.title,
+            'abstract': self.abstract,
+            'cover_img_url': self.cover_img_url,
+            'types': self.types,
+            'content': self.content,
+            'create_time': self.create_time,
+            'update_time': self.update_time
         }
         if self.cover_img_url:
             essay_info['cover_img_url'] = constants.QINIU_DOMIN_PREFIX + self.cover_img_url
