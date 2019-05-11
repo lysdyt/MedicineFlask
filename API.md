@@ -515,11 +515,66 @@ http://127.0.0.1:5000/api/1.0/allShops
 
 
 
+### 6. Essay
+
+#### 5.1 /essays 接口
 
 
+```js
+接口说明： 分页获取药膳
+请求方式：get
+返回：
 
+{
+    "data": {
+        "current_items": 1,
+        "current_page": 1,
+        "data": [
+            {
+                "abstract": "5月10号 测试相关软文",
+                "cover_img_url": null,
+                "essay_id": 1,
+                "title": "测试普通软文",
+                "types": "common"
+            }
+        ],
+        "has_next": false,
+        "pages": 1,
+        "total": 1
+    },
+    "msg": "请求成功",
+    "re_code": "0"
+}
 
+示例：
+http://127.0.0.1:5000/api/1.0/essays?page=1&count=3&types=common
+```
 
+#### 5.2 /addEssay 接口
+
+```js
+接口说明： 分页获取药膳
+请求方式：get
+参数:
+    1. title: 标题
+    2. abstract: 摘要
+    3. content: 内容
+    4. types: 类型
+返回：
+{
+    "msg": "添加成功",
+    "re_code": "0"
+}
+示例：
+http://127.0.0.1:5000/api/1.0/addEssay
+data = {
+	"title":"测试商家软文",
+	"abstract":"5月10号 测试商家软文",
+	"content":"图片暂时先不测试",
+	"types":"shop"
+}
+
+```
 
 
 
