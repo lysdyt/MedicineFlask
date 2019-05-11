@@ -142,6 +142,19 @@ class Essay(BaseModel, db.Model):
     content = db.Column(db.Text, nullable=False) # 文章内容
     types = db.Column(db.Enum('common', 'shop')) # 普通软文 商家优惠活动
 
+    def to_dict_section(self):
+        '''外界调用，一部分
+        '''
+        essay_info = {
+            'essay_id': self.id,
+            'title': self.title,
+            'abstract': self.abstract,
+            'cover_img_url': self.cover_img_url,
+            'types': self.types
+        }
+        if self.cover_img_url:
+            essay_info['cover_img_url'] = constants.QINIU_DOMIN_PREFIX + self.cover_img_url
+        return essay_info
  
 class PrivateOrder(BaseModel, db.Model):
     '''私人订制'''
