@@ -616,6 +616,26 @@ http://127.0.0.1:5000/api/1.0/byIdEssay?essay_id=2
 
 ```
 
+#### 6.4 /delEssay 接口
+
+```js
+接口说明： 删除软文
+请求方式：post
+参数：
+    1. essay_id: 软文id
+返回：
+    {
+        "msg": "删除成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/delEssay
+data = {
+	"essay_id": 11
+}
+```
+
+
 
 
 
