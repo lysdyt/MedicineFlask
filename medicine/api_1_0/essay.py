@@ -118,3 +118,35 @@ def get_id_essay():
     
     essay_info = essay.to_dict_content()
     return jsonify(re_code=RET.OK, msg='请求成功', data=essay_info)
+
+@api.route('/delEssay')
+def del_id_essay():
+    '''通过id删除软文 post
+    :param essay_id: id
+    :return: json
+    '''
+    data = request.json
+    essay_id = data.get('essay_id')
+    
+    if not essay_id:
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+
+    try:
+        essay = Essay.query.filter(Essay.id == essay_id).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='查询错误')
+    
+    if not essay:
+        return jsonify(re_code=RET.NODATA, msg='软文不存在')
+
+    try:
+        db.session.delete(essay)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback()
+        return jsonify(re_code=RET.DBERR, msg='删除错误')
+
+    
+    return jsonify(re_code=RET.OK, msg='删除成功')
