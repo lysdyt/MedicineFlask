@@ -598,7 +598,17 @@ data = {
     1. essay_id: 文章id
 返回：
 {
-    "msg": "添加成功",
+    "data": {
+        "abstract": "5月10号 测试商家软文",
+        "content": "图片暂时先不测试",
+        "cover_img_url": null,
+        "create_time": "Fri, 10 May 2019 20:41:58 GMT",
+        "essay_id": 2,
+        "title": "测试商家软文",
+        "types": "shop",
+        "update_time": "Fri, 10 May 2019 20:43:09 GMT"
+    },
+    "msg": "请求成功",
     "re_code": "0"
 }
 示例：
