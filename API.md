@@ -635,6 +635,99 @@ data = {
 }
 ```
 
+### 7. Order
+#### 7.1 /privateOrders
+```js
+接口说明： 分页获取私人订制
+请求方式：get
+参数：
+    1. page： 页码
+    2. count： 数量
+返回：
+
+{
+    "data": {
+        "current_items": 3,
+        "current_page": 1,
+        "data": [
+            {
+                "avatar_url": null,
+                "order_id": 3,
+                "title": "头孢氨苄"
+            },
+            {
+                "avatar_url": null,
+                "order_id": 2,
+                "title": "氟哌酸"
+            },
+            {
+                "avatar_url": null,
+                "order_id": 1,
+                "title": "阿斯匹林"
+            }
+        ],
+        "has_next": false,
+        "pages": 1,
+        "total": 3
+    },
+    "msg": "请求成功",
+    "re_code": "0"
+}
+
+示例：
+http://127.0.0.1:5000/api/1.0/orders?page=1&count=3
+```
+
+
+
+#### 7.2 /addPrivateOrder 接口
+
+```js
+接口说明： 添加私人订制
+请求方式：post
+参数:
+    1. title: 标题
+返回：
+{
+    "msg": "添加成功",
+    "re_code": "0"
+}
+示例：
+http://127.0.0.1:5000/api/1.0/addPrivateOrder
+data = {
+	"title":"阿斯匹林",
+}
+
+```
+
+
+#### 6.3 /delPrivateOrder 接口
+
+```js
+接口说明： 删除私人订制
+请求方式：post
+参数：
+    1. order_id: 私人订制id
+返回：
+    {
+        "msg": "删除成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/delPrivateOrder
+data = {
+	"order_id": 1
+}
+```
+
+
+
+
+
+
+
+
+
 
 
 
