@@ -180,6 +180,18 @@ class PrivateOrder(BaseModel, db.Model):
     avatar_url = db.Column(db.String(128), nullable=True) # 订制图片
     title = db.Column(db.String(64), nullable=False) # 定制标题
 
+    def to_dict(self):
+        '''外界调用
+        '''
+        order_info = {
+            'order_id': self.id,
+            'avatar_url': self.avatar_url,
+            'title': self.title
+        }
+        if self.avatar_url:
+            order_info['cover_img_url'] = constants.QINIU_DOMIN_PREFIX + self.order_info
+        return order_info
+
 class MedicineShop(BaseModel, db.Model):
     '''商家'''
     __tablename__ = 'mi_medicine_shop'
