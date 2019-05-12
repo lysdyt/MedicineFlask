@@ -49,7 +49,7 @@ def get_private_orders():
     return jsonify(re_code=RET.OK, msg='请求成功', data=orders_info)
 
 
-@api.route('/addprivateOrde', methods=['POST'])
+@api.route('/addPrivateOrder', methods=['POST'])
 def add_private_order():
     '''添加私人订制 请求方式post
     :param title: 标题
@@ -74,7 +74,7 @@ def add_private_order():
     return jsonify(re_code=RET.OK, msg='添加成功')
 
 @api.route('/delPrivateOrder', methods=['POST'])
-def del_shop():
+def del_private_order():
     '''删除药膳
     '''
     data = request.json
@@ -86,7 +86,7 @@ def del_shop():
 
     
     try:
-        order = PrivateOrder.query.filter(PrivateOrder.id == shop_id).first()
+        order = PrivateOrder.query.filter(PrivateOrder.id == order_id).first()
     except Exception as e:
         current_app.logger.debug(e)
         return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
