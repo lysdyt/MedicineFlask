@@ -47,3 +47,60 @@ def get_private_orders():
         'has_next': order_pages.has_next
     }
     return jsonify(re_code=RET.OK, msg='请求成功', data=orders_info)
+
+
+@api.route('/addprivateOrde', methods=['POST'])
+def add_private_order():
+    '''添加私人订制 请求方式post
+    :param title: 标题
+    '''
+    data = request.json
+    title = data.get('title')
+    if not title:
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+
+    order = PrivateOrder()
+    order.title = title
+    
+    # 添加
+    try:
+        db.session.add(order)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback() # 事务回滚
+        return jsonify(re_code=RET.DBERR, msg='添加私人订制失败')
+
+    return jsonify(re_code=RET.OK, msg='添加成功')
+
+@api.route('/delPrivateOrder', methods=['POST'])
+def del_shop():
+    '''删除药膳
+    '''
+    data = request.json
+    order_id = data.get('order_id')
+
+    # 检测参数
+    if not order_id:
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+
+    
+    try:
+        order = PrivateOrder.query.filter(PrivateOrder.id == shop_id).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
+    
+    if not order:
+        return jsonify(re_code=RET.PARAMERR, msg='药膳不存在')
+
+    # 删除
+    try:
+        db.session.delete(order)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback() # 事务回滚
+        return jsonify(re_code=RET.DBERR, msg='删除药膳失败')
+
+    return jsonify(re_code=RET.OK, msg='删除成功')
