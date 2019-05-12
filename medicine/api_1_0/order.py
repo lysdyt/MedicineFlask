@@ -92,7 +92,7 @@ def del_shop():
         return jsonify(re_code=RET.DBERR, msg='数据库查询错误')
     
     if not order:
-        return jsonify(re_code=RET.PARAMERR, msg='药膳不存在')
+        return jsonify(re_code=RET.PARAMERR, msg='私人订制不存在')
 
     # 删除
     try:
@@ -101,6 +101,6 @@ def del_shop():
     except Exception as e:
         current_app.logger.debug(e)
         db.session.rollback() # 事务回滚
-        return jsonify(re_code=RET.DBERR, msg='删除药膳失败')
+        return jsonify(re_code=RET.DBERR, msg='删除私人订制失败')
 
     return jsonify(re_code=RET.OK, msg='删除成功')
