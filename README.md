@@ -17,6 +17,14 @@
 
 #### [点我](./API.md)
 
+
+### 时间 2019.5.12
+###### 1. 创建order视图
+###### 2. 编写privateOrders 接口
+###### 3. 编写addPrivateOrder 接口
+###### 4. 编写delPrivateOrder 接口
+
+
 ### 时间 2019.5.11
 ###### 1. essays 接口
 ###### 2. byIdEssays 接口
