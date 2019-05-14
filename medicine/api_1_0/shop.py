@@ -40,7 +40,7 @@ def get_shops():
         for video in videos:
             videos_list.append(video.to_dict())
         shop_dict = shop.to_dict()
-        shop_dict['experts'] = videos_list
+        shop_dict['videos'] = videos_list
         shops_list.append(shop_dict)
 
     shops_info = {
