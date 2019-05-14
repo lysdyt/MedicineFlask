@@ -246,6 +246,21 @@ class Question(BaseModel, db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('mi_user_profile.id'), nullable=False) # 病人id
     answers = db.relationship('Answer', backref='question')
 
+    def to_dict(self):
+        '''外界调用
+        '''
+        question_info = {
+            'question_id': self.id,
+            'content': self.content,
+            'user_id': self.user_id
+        }
+        return question_info
+    
+    def get_answers(self):
+        '''外界调用
+        '''
+        return self.answers
+
 class Answer(BaseModel, db.Model):
     '''回答
     '''
@@ -255,6 +270,18 @@ class Answer(BaseModel, db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('mi_user_profile.id'), nullable=True) # 病人id 可以为空
     expert_id = db.Column(db.Integer, db.ForeignKey('mi_expert_profile.id'), nullable=True) # 医生id 可以为空
     content = db.Column(db.String(255), nullable=False) # 回答内容
+
+    def to_dict(self):
+        '''外界调用
+        '''
+        answer_info = {
+            'answer_id': self.id,
+            'question_id': self.question_id,
+            'user_id': self.user_id,
+            'expert_id': self.expert_id,
+            'content': self.content
+        }
+        return answer_info
 
 
 
