@@ -108,4 +108,55 @@ def del_question():
 
     return jsonify(re_code=RET.OK, msg='删除成功')
 
+@api.route('/addAnswer', methods=['POST'])
+def add_answer():
+    '''对相应的问题进行回答
+    :param question_id: 问题id
+            user_id:
+            expert_id:
+            content:
+    '''
+
+    data = request.json
+    question_id = data.get('question_id')
+    user_id = data.get('user_id')
+    expert_id = data.get('expert_id')
+    content = data.get('content')
+
+    if not all([question_id, content]):
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+
+    try:
+        question = Question.query.filter(Question.id == question_id).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='查询错误')
+
+    if not question:
+        return jsonify(re_code=RET.NODATA, msg='问题不存在')
+
+    answer = Answer()
+    if user_id and expert_id:
+        return jsonify(re_code=RET.PARAMERR, msg='user_id,expert_id 不同时')
+
+    if user_id:
+        answer.user_id = user_id
+    if expert_id:
+        answer.expert_id = expert_id
+
+    answer.question_id = question_id
+    answer.content = content
+
+    try:
+        db.session.add(answer)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback()
+        return jsonify(re_code=RET.DBERR, msg='添加错误')
+
+    return jsonify(re_code=RET.OK, msg='添加成功')
+
+
+
     
