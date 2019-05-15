@@ -11,7 +11,7 @@ from medicine.utils.common import login_required
 from medicine.models import Question, Answer
 
 @api.route('/questions')
-def get_communities():
+def get_questions():
     '''分页获取社区内容
     '''
     page = request.args.get('page', '1')
@@ -50,3 +50,30 @@ def get_communities():
         'has_next': question_pages.has_next
     }
     return jsonify(re_code=RET.OK, msg='请求成功', data=questions_info)
+
+
+@api.route('/addQuestion', methods=['POST'])
+def add_question():
+    '''添加问题 请求方式 post
+    :param 1. user_id 病人id
+            2. content
+    '''
+    data = request.json
+    user_id = data.get('user_id')
+    content = data.get('content')
+    if not all([user_id, content]):
+        return jsonify(re_code=RET.PARAMERR, msg='缺少参数')
+
+    question = Question()
+    question.user_id = user_id
+    question.content = content
+
+    try:
+        db.session.add(question)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback()
+        return jsonify(re_code=RET.DBERR, msg='添加错误')
+
+    return jsonify(re_code=RET.OK, msg='添加成功')
