@@ -701,7 +701,7 @@ data = {
 ```
 
 
-#### 6.3 /delPrivateOrder 接口
+#### 7.3 /delPrivateOrder 接口
 
 ```js
 接口说明： 删除私人订制
@@ -723,9 +723,55 @@ data = {
 
 
 
+### 7. Community
+#### 7.1 /questions 接口
 
 
+```js
+接口说明： 分页获取问题
+请求方式：get
+参数：
+    1. page： 页码
+    2. count： 数量
+返回：
+{
+    "data": {
+        "current_items": 1,
+        "current_page": 1,
+        "data": [
+            {
+                "answers": [
+                    {
+                        "answer_id": 1,
+                        "content": "你好，请服用治肚子疼的药",
+                        "expert_id": 1,
+                        "question_id": 1,
+                        "user_id": null
+                    },
+                    {
+                        "answer_id": 2,
+                        "content": "人家医生说了，吃药呗",
+                        "expert_id": null,
+                        "question_id": 1,
+                        "user_id": 1
+                    }
+                ],
+                "content": "各位老师好，我是一名在校生，自己患有慢性胃炎",
+                "question_id": 1,
+                "user_id": 1
+            }
+        ],
+        "has_next": false,
+        "pages": 1,
+        "total": 1
+    },
+    "msg": "请求成功",
+    "re_code": "0"
+}
 
+示例：
+http://127.0.0.1:5000/api/1.0/questions?page=1&count=3
+```
 
 
 
