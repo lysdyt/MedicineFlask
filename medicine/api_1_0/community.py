@@ -160,7 +160,7 @@ def add_answer():
 
 
 @api.route('/delAnswer', methods=['POST'])
-def del_question():
+def del_answer():
     '''通过id删除answer
     :param answer_id: 解答id
     '''
