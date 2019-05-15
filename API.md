@@ -723,8 +723,8 @@ data = {
 
 
 
-### 7. Community
-#### 7.1 /questions 接口
+### 8. Community
+#### 8.1 /questions 接口
 
 
 ```js
@@ -773,7 +773,43 @@ data = {
 http://127.0.0.1:5000/api/1.0/questions?page=1&count=3
 ```
 
+#### 8.2 /delQuestion 接口
 
+```js
+接口说明： 删除私人订制
+请求方式：post
+参数：
+    1. question_id: 问题id
+返回：
+    {
+        "msg": "删除成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/delQuestion
+data = {
+	"question_id": 1
+}
+```
+
+#### 8.3 /delAnswer 接口
+
+```js
+接口说明： 删除私人订制
+请求方式：post
+参数：
+    1. question_id: 问题id
+返回：
+    {
+        "msg": "删除成功",
+        "re_code": "0"
+    }
+示例：
+http://127.0.0.1:5000/api/1.0/delQuestion
+data = {
+	"question_id": 1
+}
+```
 
 
 
