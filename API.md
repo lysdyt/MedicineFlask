@@ -795,19 +795,19 @@ data = {
 #### 8.3 /delAnswer 接口
 
 ```js
-接口说明： 删除私人订制
+接口说明： 删除解答
 请求方式：post
 参数：
-    1. question_id: 问题id
+    1. answer_id: 问题id
 返回：
     {
         "msg": "删除成功",
         "re_code": "0"
     }
 示例：
-http://127.0.0.1:5000/api/1.0/delQuestion
+http://127.0.0.1:5000/api/1.0/delAnswer
 data = {
-	"question_id": 1
+	"answer_id": 1
 }
 ```
 
