@@ -77,3 +77,35 @@ def add_question():
         return jsonify(re_code=RET.DBERR, msg='添加错误')
 
     return jsonify(re_code=RET.OK, msg='添加成功')
+
+@api.route('/delQuestion', methods=['POST'])
+def del_question():
+    '''通过id删除question
+    :param question_id: 问题id
+    '''
+    data = request.json
+    question_id = data.get('question_id')
+
+    if not question_id:
+        return jsonify(re_code=RET.PARAMERR, msg='参数为空')
+
+    try:
+        question = Question.query.filter(Question.id == question_id).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='查询错误')
+
+    if not question:
+        return jsonify(re_code=RET.NODATA, msg='问题不存在')
+
+    try:
+        db.session.delete(question)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback()
+        return jsonify(re_code=RET.DBERR, msg='删除错误')
+
+    return jsonify(re_code=RET.OK, msg='删除成功')
+
+    
