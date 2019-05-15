@@ -159,4 +159,32 @@ def add_answer():
 
 
 
-    
+@api.route('/delAnswer', methods=['POST'])
+def del_question():
+    '''通过id删除answer
+    :param answer_id: 解答id
+    '''
+    data = request.json
+    answer_id = data.get('answer_id')
+
+    if not answer_id:
+        return jsonify(re_code=RET.PARAMERR, msg='参数为空')
+
+    try:
+        answer = Answer.query.filter(Answer.id == answer_id).first()
+    except Exception as e:
+        current_app.logger.debug(e)
+        return jsonify(re_code=RET.DBERR, msg='查询错误')
+
+    if not answer:
+        return jsonify(re_code=RET.NODATA, msg='问题不存在')
+
+    try:
+        db.session.delete(answer)
+        db.session.commit()
+    except Exception as e:
+        current_app.logger.debug(e)
+        db.session.rollback()
+        return jsonify(re_code=RET.DBERR, msg='删除错误')
+
+    return jsonify(re_code=RET.OK, msg='删除成功')
