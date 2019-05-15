@@ -812,8 +812,52 @@ data = {
 ```
 
 
+#### 8.4 /addQuestion 接口
 
+```js
+接口说明： 添加问题
+请求方式：post
+参数:
+    1. user_id: 病人id
+    2. content: 问题内容
+返回：
+{
+    "msg": "添加成功",
+    "re_code": "0"
+}
+示例：
+http://127.0.0.1:5000/api/1.0/addQuestion
+data = {
+	"user_id":"1",
+	"content":"我一直拉肚子，怎么？"
+}
 
+```
+#### 8.5 /addAnswer 接口
+
+```js
+接口说明： 添加解答
+请求方式：post
+参数:
+    1. question_id: 问题id
+    2. content: 回答内容
+    3. user_id: 病人回答  （如果是expert_id存在， 则user_id 为空）
+    4. expert_id: 医生回答  同上
+返回：
+{
+    "msg": "添加成功",
+    "re_code": "0"
+}
+示例：
+http://127.0.0.1:5000/api/1.0/addAnswer
+{
+	"question_id":"1",
+	"user_id":"",
+	"expert_id":"1",
+	"content":"名字我给忘了，吗丁啉？"
+}
+
+```
 
 
 
