@@ -23,7 +23,7 @@ class Config(object):
     SESSION_TYPE = 'redis'
 
     # 指定存储session数据的redis的位置
-    SESSION_REDIS = StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
+    SESSION_REDIS = StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB, )
     # 开启session数据的签名，意思是让session数据不以明文形式存储
     SESSION_USE_SIGNER = True
     # 設置session的会话的超时时长 ：一天,全局指定
@@ -48,6 +48,7 @@ class ProductionConfig(Config):
     # DEBUG = False
     # SQLALCHEMY_DATABASE_URI = 'mysql://root:mysql@47.106.93.190:3306/project'
     # REDIS_HOST = '47.106.93.190'
+    # REDIS_PASSWORD = '123'
 
 #工厂函数原材料
 configs={
